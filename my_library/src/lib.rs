@@ -26,7 +26,7 @@ pub extern "C" fn fib_sum(times: usize) -> u64 {
 #[cfg(test)]
 mod tests {
     #[test]
-    fn fin_sum_works() {
+    fn fib_sum_works() {
         use super::fib_sum;
         assert_eq!(fib_sum(10), 88);
     }

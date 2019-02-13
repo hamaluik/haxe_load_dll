@@ -20,5 +20,7 @@ class Main {
 
         trace("Calculating the sum of the first 10 numbers in the Fibonacci sequence:");
         trace(MyLibrary.fib_sum(10));
+
+        MyLibrary.unload();
 	}
 }

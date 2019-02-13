@@ -1,12 +1,12 @@
 package;
 
 class MyLibrary {
+    static var lib: cpp.RawPointer<cpp.Void>;
     static var _add_two: cpp.RawPointer<cpp.Void>;
     static var _fib_sum: cpp.RawPointer<cpp.Void>;
 
     public static function load(path: String): Bool {
-		var lib = Dl.open(path, Dl.RTLD_NOW);
-		
+		lib = Dl.open(path, Dl.RTLD_NOW);
 		if(lib == null) {
 			trace("can't find library");
 			return false;
@@ -16,16 +16,22 @@ class MyLibrary {
 		_add_two = Dl.sym(lib, "add_two");
 		if(_add_two == null) {
 			trace("can't find add_two");
+            Dl.close(lib);
 			return false;
 		}
 
 		_fib_sum = Dl.sym(lib, "fib_sum");
 		if(_fib_sum == null) {
 			trace("can't find fib_sum");
+            Dl.close(lib);
 			return false;
 		}
 
         return true;
+    }
+
+    public static function unload(): Void {
+        Dl.close(lib);
     }
 
     public static function add_two(x: Int): Int {
